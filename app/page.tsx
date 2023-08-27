@@ -1,10 +1,32 @@
-import Link from "next/link";
+import { stripe } from "@/config";
+import Product from "@/app/components/product";
 
-export default function Home() {
+const getProducts = async () => {
+  const products = await stripe.products.list();
+
+  return await Promise.all(
+    products.data.map(async (product) => {
+      const prices = await stripe.prices.list({ product: product.id });
+
+      return {
+        id: product.id,
+        name: product.name,
+        image: product.images[0],
+        price: prices.data[0].unit_amount,
+      };
+    }),
+  );
+};
+
+export type Product = Awaited<ReturnType<typeof getProducts>>[number];
+
+export default async function Home() {
+  const products = await getProducts();
   return (
-    <main>
-      <Link href="about">About</Link>
-      <h1>Home</h1>
+    <main className="grid grid-cols-fluid gap-16">
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
+      ))}
     </main>
   );
 }
