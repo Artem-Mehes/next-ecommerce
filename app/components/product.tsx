@@ -1,23 +1,43 @@
 import Image from "next/image";
 import { Product } from "@/app/page";
 import { formatPrice } from "@/utils/price";
+import Link from "next/link";
 
-export default function Product({ name, image, price }: Product) {
+export default function Product({
+  id,
+  name,
+  image,
+  unit_amount,
+  description,
+}: Product) {
   return (
-    <div className="text-gray-700 flex gap-6 flex-col">
-      <Image
-        alt={name}
-        src={image}
-        width={400}
-        height={400}
-        className="w-full h-96 object-cover rounded-lg"
-      />
-      <div className="font-medium">
-        <h2>{name}</h2>
-        <p className="text-sm text-teal-700">
-          {price ? formatPrice(price) : "N/A"}
-        </p>
+    <Link
+      href={{
+        pathname: `/product/${id}`,
+        query: {
+          id,
+          name,
+          image,
+          unit_amount,
+          description,
+        },
+      }}
+    >
+      <div className="text-gray-700 flex gap-6 flex-col">
+        <Image
+          alt={name}
+          src={image}
+          width={400}
+          height={400}
+          className="w-full h-96 object-cover rounded-lg"
+        />
+        <div className="font-medium ">
+          <h2>{name}</h2>
+          <p className="text-sm text-teal-700">
+            {unit_amount ? formatPrice(unit_amount) : "N/A"}
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

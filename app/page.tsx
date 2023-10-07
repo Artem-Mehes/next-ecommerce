@@ -12,7 +12,9 @@ const getProducts = async () => {
         id: product.id,
         name: product.name,
         image: product.images[0],
-        price: prices.data[0].unit_amount,
+        description: product.description,
+        currency: prices.data[0].currency,
+        unit_amount: prices.data[0].unit_amount,
       };
     }),
   );
