@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Cart from "./cart";
 import { useCartStore } from "@/store";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Nav({ user }: { user: Session["user"] }) {
   const cartStore = useCartStore();
@@ -20,9 +21,24 @@ export default function Nav({ user }: { user: Session["user"] }) {
       <div className="flex gap-10 items-center">
         <button className="relative text-3xl" onClick={cartStore.toggle}>
           <AiFillShopping />
-          <span className="absolute bg-teal-700 text-white text-sm font-bold w-5 h-5 rounded-full left-4 bottom-4">
-            {cartStore.cart.length}
-          </span>
+          <AnimatePresence>
+            {cartStore.cart.length > 0 && (
+              <motion.span
+                initial={{
+                  scale: 0,
+                }}
+                animate={{
+                  scale: 1,
+                }}
+                exit={{
+                  scale: 0,
+                }}
+                className="absolute bg-teal-700 text-white text-sm font-bold w-5 h-5 rounded-full left-4 bottom-4"
+              >
+                {cartStore.cart.length}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
 
         {user ? (
@@ -42,7 +58,7 @@ export default function Nav({ user }: { user: Session["user"] }) {
           </button>
         )}
 
-        {cartStore.isOpen && <Cart />}
+        <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>
       </div>
     </nav>
   );

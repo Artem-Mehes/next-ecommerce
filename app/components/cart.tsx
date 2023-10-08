@@ -5,6 +5,7 @@ import Image from "next/image";
 import { formatPrice } from "@/utils/price";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 import { TiShoppingCart } from "react-icons/ti";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -15,9 +16,18 @@ export default function Cart() {
   );
 
   return (
-    <div
+    <motion.div
       onClick={cartStore.toggle}
       className="fixed w-full h-screen inset-0 bg-black/25"
+      exit={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      initial={{
+        opacity: 0,
+      }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -56,20 +66,27 @@ export default function Cart() {
         ))}
 
         {cartStore.cart.length ? (
-          <>
+          <motion.div layout>
             <p>Total: {formatPrice(totalPrice)}</p>
 
             <button className="py-2 mt-4 bg-teal-700 w-full rounded-md text-white">
               Checkout
             </button>
-          </>
+          </motion.div>
         ) : (
-          <div className="flex flex-col items-center gap-10 text-2xl font-medium opacity-75 my-auto">
-            Cart is empty
-            <TiShoppingCart size={100} />
-          </div>
+          <AnimatePresence>
+            <motion.div
+              initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
+              exit={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
+              animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
+              className="flex flex-col items-center gap-10 text-2xl font-medium opacity-75 my-auto"
+            >
+              Cart is empty
+              <TiShoppingCart size={100} />
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
