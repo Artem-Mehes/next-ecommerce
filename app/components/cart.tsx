@@ -9,6 +9,11 @@ import { TiShoppingCart } from "react-icons/ti";
 export default function Cart() {
   const cartStore = useCartStore();
 
+  const totalPrice = cartStore.cart.reduce(
+    (price, item) => price + item.unit_amount * item.quantity,
+    0,
+  );
+
   return (
     <div
       onClick={cartStore.toggle}
@@ -51,9 +56,13 @@ export default function Cart() {
         ))}
 
         {cartStore.cart.length ? (
-          <button className="py-2 mt-4 bg-teal-700 w-full rounded-md text-white">
-            Checkout
-          </button>
+          <>
+            <p>Total: {formatPrice(totalPrice)}</p>
+
+            <button className="py-2 mt-4 bg-teal-700 w-full rounded-md text-white">
+              Checkout
+            </button>
+          </>
         ) : (
           <div className="flex flex-col items-center gap-10 text-2xl font-medium opacity-75 my-auto">
             Cart is empty
