@@ -31,9 +31,14 @@ export default function Cart() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex flex-col bg-white absolute right-0 top-0 w-1/4 h-screen p-12 overflow-y-scroll text-gray-700"
+        className="flex flex-col bg-white absolute right-0 top-0 w-full lg:w-1/4 h-screen p-12 overflow-y-scroll text-gray-700"
       >
-        <h1>Cart</h1>
+        <button
+          onClick={cartStore.toggle}
+          className="font-bold text-sm self-start"
+        >
+          Back to store 🏃‍♂️
+        </button>
         {cartStore.cart.map((item) => (
           <div className="flex py-4 gap-4" key={item.id}>
             <Image
