@@ -1,14 +1,14 @@
 import "./globals.css";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { getServerSession } from "next-auth";
 
 import Nav from "@/app/components/nav";
 import { authOptions } from "@/config";
 import Hydrate from "@/app/components/hydrate";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} mx-64`}>
+      <body className={`${font.className} mx-64`}>
         <Hydrate>
           <Nav user={session?.user} />
           {children}

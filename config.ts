@@ -12,6 +12,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXT_AUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
