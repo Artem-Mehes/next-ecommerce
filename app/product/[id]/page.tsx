@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { Product as ProductType } from "@/app/page";
 import { formatPrice } from "@/utils/price";
+import AddToCart from "./add-to-cart";
 
 interface ProductProps {
   searchParams: ProductType;
 }
 
-export default async function Product({
-  searchParams: { image, name, description, unit_amount },
-}: ProductProps) {
+export default async function Product({ searchParams }: ProductProps) {
+  const { image, name, description, unit_amount } = searchParams;
+
   return (
     <div className="flex justify-between gap-24 p-12 text-gray-700">
       <Image src={image} alt={name} width={600} height={600} />
@@ -22,9 +23,7 @@ export default async function Product({
           </p>
         </div>
 
-        <button className="my-12 text-white py-2 px-6 font-medium rounded-md bg-teal-700">
-          Add to cart
-        </button>
+        <AddToCart {...searchParams} />
       </div>
     </div>
   );

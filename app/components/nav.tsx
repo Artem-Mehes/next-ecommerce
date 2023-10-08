@@ -1,33 +1,49 @@
 "use client";
 
 import { Session } from "next-auth";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { AiFillShopping } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import Cart from "./cart";
+import { useCartStore } from "@/store";
 
 export default function Nav({ user }: { user: Session["user"] }) {
+  const cartStore = useCartStore();
+
   return (
     <nav className="flex justify-between items-center p-6">
-      <Link href="/">
+      <Link href="/" className="flex-grow">
         <h1>Styled</h1>
       </Link>
 
-      {user ? (
-        <Image
-          width={48}
-          height={48}
-          alt="avatar"
-          src={user?.image!}
-          className="rounded-full"
-        />
-      ) : (
-        <button
-          onClick={() => signIn()}
-          className="bg-teal-600 text-white py-2 px-4 rounded-md"
-        >
-          Sign in
+      <div className="flex gap-10 items-center">
+        <button className="relative text-3xl" onClick={cartStore.toggle}>
+          <AiFillShopping />
+          <span className="absolute bg-teal-700 text-white text-sm font-bold w-5 h-5 rounded-full left-4 bottom-4">
+            {cartStore.cart.length}
+          </span>
         </button>
-      )}
+
+        {user ? (
+          <Image
+            width={36}
+            height={36}
+            alt="avatar"
+            src={user?.image!}
+            className="rounded-full"
+          />
+        ) : (
+          <button
+            onClick={() => signIn()}
+            className="bg-teal-600 text-white py-2 px-4 rounded-md"
+          >
+            Sign in
+          </button>
+        )}
+
+        {cartStore.isOpen && <Cart />}
+      </div>
     </nav>
   );
 }

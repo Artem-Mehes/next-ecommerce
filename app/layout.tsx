@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 
 import Nav from "@/app/components/nav";
 import { authOptions } from "@/config";
+import Hydrate from "@/app/components/hydrate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +25,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} mx-64`}>
-        <Nav user={session?.user} />
-        {children}
+        <Hydrate>
+          <Nav user={session?.user} />
+          {children}
+        </Hydrate>
       </body>
     </html>
   );
