@@ -11,8 +11,14 @@ export default async function Product({ searchParams }: ProductProps) {
   const { image, name, description, unit_amount } = searchParams;
 
   return (
-    <div className="flex justify-between gap-24 p-12 text-gray-700">
-      <Image src={image} alt={name} width={600} height={600} />
+    <div className="flex flex-col lg:flex-row justify-between gap-5 lg:gap-12 md:p-12 text-gray-700">
+      <Image
+        src={image}
+        alt={name}
+        width={600}
+        height={600}
+        className="w-full"
+      />
 
       <div className="font-medium text-gray-700">
         <div className="flex flex-col gap-5">

@@ -24,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${font.className} mx-4 lg:mx-48`}>
+      <body className={`${font.className} mx-4 xl:mx-48`}>
         <Hydrate>
           <Nav user={session?.user} />
           {children}
