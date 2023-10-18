@@ -7,6 +7,7 @@ import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 import { TiShoppingCart } from "react-icons/ti";
 import { motion, AnimatePresence } from "framer-motion";
 import Checkout from "@/app/components/checkout";
+import OrderConfirmed from "@/app/components/order-confirmed";
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -113,6 +114,8 @@ export default function Cart() {
             <Checkout />
           </>
         )}
+
+        {cartStore.viewType === "success" && <OrderConfirmed />}
       </div>
     </motion.div>
   );

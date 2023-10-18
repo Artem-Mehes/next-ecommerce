@@ -8,25 +8,38 @@ export interface CartProduct extends Product {
 
 type ViewType = "cart" | "checkout" | "success";
 
-interface CartState {
+interface CartStateFields {
   isOpen: boolean;
-  toggle: () => void;
   cart: CartProduct[];
   paymentIntent?: string;
+  viewType: "cart" | "checkout" | "success";
+}
+
+interface CartState extends CartStateFields {
+  toggle: () => void;
   add: (item: Product) => void;
   remove: (id: Product["id"]) => void;
   setPaymentIntent: (value: string) => void;
-  viewType: "cart" | "checkout" | "success";
   setViewType: (viewType: ViewType) => void;
+  clearCart: () => void;
 }
+
+const initialState: CartStateFields = {
+  cart: [],
+  isOpen: false,
+  viewType: "cart",
+  paymentIntent: "",
+};
 
 export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
-      cart: [],
-      isOpen: false,
-      viewType: "cart",
-      paymentIntent: "",
+      ...initialState,
+
+      clearCart: () =>
+        set({
+          cart: [],
+        }),
 
       setViewType: (viewType) =>
         set({
