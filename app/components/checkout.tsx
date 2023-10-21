@@ -5,8 +5,10 @@ import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "@/app/components/checkout-form";
 import { Elements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/store";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useCartStore, useThemeStore } from "@/store";
+import orderLoading from "@/public/order-loading.json";
+import { motion } from "framer-motion";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
@@ -16,6 +18,7 @@ export default function Checkout() {
   const router = useRouter();
 
   const cartStore = useCartStore();
+  const themeStore = useThemeStore();
 
   const [clientSecret, setClientSecret] = useState();
 
@@ -48,8 +51,17 @@ export default function Checkout() {
 
   if (!clientSecret)
     return (
-      <div className="flex items-center justify-center my-10 opacity-75">
-        <AiOutlineLoading3Quarters size={50} className="animate-spin" />
+      <div className="mt-24 flex flex-col items-center">
+        <motion.h1
+          transition={{ delay: 0.5 }}
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 10 }}
+          className="text-2xl font-extrabold"
+        >
+          Prepping your order ✨
+        </motion.h1>
+
+        <Player src={orderLoading} autoplay loop />
       </div>
     );
 
@@ -60,8 +72,8 @@ export default function Checkout() {
         locale: "en",
         clientSecret: clientSecret,
         appearance: {
-          theme: "stripe",
           labels: "floating",
+          theme: themeStore.mode === "dark" ? "night" : "stripe",
         },
       }}
     >

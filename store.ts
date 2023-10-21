@@ -99,3 +99,22 @@ export const useCartStore = create<CartState>()(
     { name: "cart" },
   ),
 );
+
+interface ThemeStore {
+  toggle: () => void;
+  mode: "light" | "dark";
+}
+
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
+      mode: "light",
+
+      toggle: () =>
+        set((state) => ({
+          mode: state.mode === "light" ? "dark" : "light",
+        })),
+    }),
+    { name: "theme" },
+  ),
+);

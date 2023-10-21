@@ -43,7 +43,7 @@ export default function CheckoutForm() {
       </h1>
       <button
         id="submit"
-        className="bg-teal-700 rounded-md text-white p-2 disabled:opacity-25"
+        className="bg-primary rounded-md text-white p-2 disabled:opacity-25"
         disabled={isLoading || !stripe || !elements}
       >
         <span id="button-text">

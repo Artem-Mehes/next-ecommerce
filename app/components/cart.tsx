@@ -17,7 +17,7 @@ export default function Cart() {
   return (
     <motion.div
       onClick={cartStore.toggle}
-      className="fixed w-full h-screen inset-0 bg-black/25"
+      className="fixed w-full h-screen inset-0 bg-black/50"
       exit={{
         opacity: 0,
       }}
@@ -30,7 +30,7 @@ export default function Cart() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex flex-col gap-8 bg-white absolute right-0 top-0 w-full lg:w-1/4 h-screen p-12 overflow-y-scroll text-gray-700"
+        className="flex flex-col gap-8 bg-base-300 absolute right-0 top-0 w-full lg:w-1/4 h-screen p-12 overflow-y-scroll"
       >
         {cartStore.viewType === "cart" && (
           <>
@@ -42,7 +42,10 @@ export default function Cart() {
             </button>
 
             {cartStore.cart.map((item) => (
-              <div className="flex gap-4" key={item.id}>
+              <div
+                className="flex gap-4 bg-base-200 p-2 rounded shadow-2xl"
+                key={item.id}
+              >
                 <Image
                   width={120}
                   height={120}
@@ -81,7 +84,7 @@ export default function Cart() {
 
                 <button
                   onClick={() => cartStore.setViewType("checkout")}
-                  className="py-2 bg-teal-700 w-full rounded-md text-white flex gap-3 justify-center items-center"
+                  className="py-2 bg-primary w-full rounded-md text-white flex gap-3 justify-center items-center"
                 >
                   Checkout
                 </button>

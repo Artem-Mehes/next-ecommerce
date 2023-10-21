@@ -23,7 +23,7 @@ export default function Product({
         },
       }}
     >
-      <div className="text-gray-700 flex gap-6 flex-col">
+      <div className="flex gap-6 flex-col">
         <Image
           alt={name}
           src={image}
@@ -33,7 +33,7 @@ export default function Product({
         />
         <div className="font-medium ">
           <h2>{name}</h2>
-          <p className="text-sm text-teal-700">
+          <p className="text-sm text-primary">
             {unit_amount ? formatPrice(unit_amount) : "N/A"}
           </p>
         </div>

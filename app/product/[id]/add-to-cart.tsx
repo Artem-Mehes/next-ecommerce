@@ -2,9 +2,12 @@
 
 import { useCartStore } from "@/store";
 import { Product } from "@/app/page";
+import { useState } from "react";
 
 export default function AddToCart(props: Product) {
   const cartStore = useCartStore();
+
+  const [added, setAdded] = useState(false);
 
   const cartQuantity = cartStore.cart.find(
     (cartItem) => cartItem.id === props.id,
@@ -12,10 +15,17 @@ export default function AddToCart(props: Product) {
 
   return (
     <button
-      onClick={() => cartStore.add(props)}
-      className="my-12 text-white py-2 px-6 font-medium rounded-md bg-teal-700 w-full lg:w-auto"
+      disabled={added}
+      onClick={() => {
+        cartStore.add(props);
+        setAdded(true);
+        setTimeout(() => setAdded(false), 500);
+      }}
+      className="my-4 btn btn-primary w-full"
     >
-      Add to cart {cartQuantity && `(${cartQuantity})`}
+      {added
+        ? "Adding to cart"
+        : `Add to cart${cartQuantity ? ` (${cartQuantity})` : ""}`}
     </button>
   );
 }
