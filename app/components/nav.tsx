@@ -16,7 +16,7 @@ export default function Nav({ user }: { user: Session["user"] }) {
   return (
     <nav className="flex justify-between items-center py-6">
       <Link href="/" className="flex-grow">
-        <h1 className="text-2xl font-extrabold">Styled</h1>
+        <h1 className="text-2xl font-extrabold font-lobster">Styled</h1>
       </Link>
 
       <div className="flex gap-8 items-center">
