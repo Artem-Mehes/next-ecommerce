@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { buffer } from "micro";
 import Stripe from "stripe";
-import { stripe, prisma } from "@/config";
+import { stripe } from "@/config";
+import prisma from "@/db";
 
 export const config = {
   api: {

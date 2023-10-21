@@ -2,9 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import Stripe from "stripe";
-import { PrismaClient } from "@prisma/client";
-
-export const prisma = new PrismaClient();
+import prisma from "@/db";
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-08-16",

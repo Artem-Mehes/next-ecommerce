@@ -25,6 +25,7 @@ export default function Product({
     >
       <div className="flex gap-6 flex-col">
         <Image
+          priority
           alt={name}
           src={image}
           width={400}

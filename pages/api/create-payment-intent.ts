@@ -1,10 +1,11 @@
 import Stripe from "stripe";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions, prisma } from "@/config";
+import { authOptions } from "@/config";
 import { getOrderAmount } from "@/utils/price";
 import { AdapterUser } from "next-auth/adapters";
 import { CartProduct } from "@/store";
+import prisma from "@/db";
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-08-16",

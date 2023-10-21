@@ -1,8 +1,9 @@
-import { prisma, authOptions } from "@/config";
+import { authOptions } from "@/config";
 import { getServerSession } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import { formatPrice } from "@/utils/price";
 import Image from "next/image";
+import prisma from "@/db";
 
 export const revalidate = 0;
 
